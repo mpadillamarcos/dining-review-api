@@ -1,0 +1,45 @@
+package mpadillamarcos.diningreview.model;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.List;
+
+import static mpadillamarcos.diningreview.model.Restaurant.newRestaurant;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+class RestaurantTest {
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("restaurantsWithMissingData")
+    void requires_mandatory_fields(String field, Restaurant.RestaurantBuilder builder) {
+        var exception = assertThrows(IllegalArgumentException.class, builder::build);
+
+        assertThat(exception).hasMessage(field + " must not be null");
+    }
+
+    @Test
+    void creates_restaurant_with_builder_values() {
+        var id = 1234L;
+        var name = "Lolailo";
+
+        var restaurant = newRestaurant()
+                .id(id)
+                .name(name)
+                .build();
+
+        assertThat(restaurant)
+                .returns(id, Restaurant::getId)
+                .returns(name, Restaurant::getName);
+    }
+
+    static List<Arguments> restaurantsWithMissingData() {
+        return List.of(
+                Arguments.arguments("id", Restaurant.builder().id(null).name("Mesón")),
+                Arguments.arguments("name", Restaurant.builder().id(123L).name(null))
+        );
+    }
+}
