@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
+import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
 import static mpadillamarcos.diningreview.utils.Checks.require;
 
 @Data
@@ -19,6 +20,9 @@ public class Review {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "state")
+    private ReviewState state;
+
     @Column(name = "peanut-score")
     private Integer peanutScore;
 
@@ -31,9 +35,10 @@ public class Review {
     @Column(name = "commentary")
     private String commentary;
 
-    public Review(Long id, String username, Integer peanutScore, Integer eggScore, Integer diaryScore, String commentary) {
+    public Review(Long id, String username, ReviewState state, Integer peanutScore, Integer eggScore, Integer diaryScore, String commentary) {
         this.id = require("id", id);
         this.username = require("username", username);
+        this.state = require("state", state);
         this.peanutScore = peanutScore;
         this.eggScore = eggScore;
         this.diaryScore = diaryScore;
@@ -41,6 +46,6 @@ public class Review {
     }
 
     public static ReviewBuilder newReview() {
-        return builder();
+        return builder().state(PENDING);
     }
 }

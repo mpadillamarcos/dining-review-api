@@ -7,7 +7,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 
+import static mpadillamarcos.diningreview.model.Instances.dummyReview;
 import static mpadillamarcos.diningreview.model.Review.newReview;
+import static mpadillamarcos.diningreview.model.ReviewState.ACCEPTED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -29,6 +31,7 @@ class ReviewTest {
         var review = newReview()
                 .id(id)
                 .username(username)
+                .state(ACCEPTED)
                 .eggScore(1)
                 .peanutScore(2)
                 .build();
@@ -36,14 +39,16 @@ class ReviewTest {
         assertThat(review)
                 .returns(id, Review::getId)
                 .returns(username, Review::getUsername)
+                .returns(ACCEPTED, Review::getState)
                 .returns(1, Review::getEggScore)
                 .returns(2, Review::getPeanutScore);
     }
 
     static List<Arguments> reviewsWithMissingData() {
         return List.of(
-                Arguments.arguments("id", Review.builder().id(null).username("Pepe")),
-                Arguments.arguments("username", Review.builder().id(123L).username(null))
+                Arguments.arguments("id", dummyReview().id(null)),
+                Arguments.arguments("username", dummyReview().username(null)),
+                Arguments.arguments("state", dummyReview().state(null))
         );
     }
 
