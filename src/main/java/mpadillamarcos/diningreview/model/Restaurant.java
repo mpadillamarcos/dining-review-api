@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
+import static mpadillamarcos.diningreview.utils.Checks.require;
+
 @Data
 @Entity
 @Table(name = "restaurants")
@@ -37,12 +39,4 @@ public class Restaurant {
     public static RestaurantBuilder newRestaurant() {
         return builder();
     }
-
-    private static <T> T require(String name, T value) {
-        if (value == null) {
-            throw new IllegalArgumentException(name + " must not be null");
-        }
-        return value;
-    }
-
 }
