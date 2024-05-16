@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 
+import static mpadillamarcos.diningreview.model.Instances.dummyRestaurant;
 import static mpadillamarcos.diningreview.model.Restaurant.newRestaurant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,17 +30,20 @@ class RestaurantTest {
         var restaurant = newRestaurant()
                 .id(id)
                 .name(name)
+                .zipcode(123456)
                 .build();
 
         assertThat(restaurant)
                 .returns(id, Restaurant::getId)
-                .returns(name, Restaurant::getName);
+                .returns(name, Restaurant::getName)
+                .returns(123456, Restaurant::getZipcode);
     }
 
     static List<Arguments> restaurantsWithMissingData() {
         return List.of(
-                Arguments.arguments("id", Restaurant.builder().id(null).name("Mesón")),
-                Arguments.arguments("name", Restaurant.builder().id(123L).name(null))
+                Arguments.arguments("id", dummyRestaurant().id(null)),
+                Arguments.arguments("name", dummyRestaurant().name(null)),
+                Arguments.arguments("zipcode", dummyRestaurant().zipcode(null))
         );
     }
 }

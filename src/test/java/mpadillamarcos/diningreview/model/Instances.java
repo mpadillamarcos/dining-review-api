@@ -2,12 +2,23 @@ package mpadillamarcos.diningreview.model;
 
 import mpadillamarcos.diningreview.model.User.UserBuilder;
 
+import static mpadillamarcos.diningreview.model.Restaurant.*;
 import static mpadillamarcos.diningreview.model.Review.ReviewBuilder;
 import static mpadillamarcos.diningreview.model.Review.newReview;
 import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
 import static mpadillamarcos.diningreview.model.User.newUser;
 
 public class Instances {
+
+    public static RestaurantBuilder dummyRestaurant() {
+        return newRestaurant()
+                .id(456L)
+                .name("Bella Trattoria")
+                .zipcode(94118)
+                .peanut(3F)
+                .egg(4.4F)
+                .diary(2.3F);
+    }
 
     public static ReviewBuilder dummyReview() {
         return newReview()

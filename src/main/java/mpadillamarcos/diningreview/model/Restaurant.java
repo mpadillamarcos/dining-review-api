@@ -19,6 +19,9 @@ public class Restaurant {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "zipcode")
+    private Integer zipcode;
+
     @Column(name = "peanut-score")
     private Float peanut;
 
@@ -28,9 +31,10 @@ public class Restaurant {
     @Column(name = "diary-score")
     private Float diary;
 
-    public Restaurant(Long id, String name, Float peanut, Float egg, Float diary) {
+    public Restaurant(Long id, String name, Integer zipcode, Float peanut, Float egg, Float diary) {
         this.id = require("id", id);
         this.name = require("name", name);
+        this.zipcode = require("zipcode", zipcode);
         this.peanut = peanut;
         this.egg = egg;
         this.diary = diary;
