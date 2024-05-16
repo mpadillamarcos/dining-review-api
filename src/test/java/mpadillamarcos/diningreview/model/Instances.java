@@ -17,7 +17,8 @@ public class Instances {
                 .zipcode(94118)
                 .peanut(3F)
                 .egg(4.4F)
-                .diary(2.3F);
+                .diary(2.3F)
+                .total(3.23F);
     }
 
     public static ReviewBuilder dummyReview() {
