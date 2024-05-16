@@ -17,6 +17,9 @@ public class Review {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "restaurant")
+    private String restaurant;
+
     @Column(name = "username")
     private String username;
 
@@ -35,8 +38,9 @@ public class Review {
     @Column(name = "commentary")
     private String commentary;
 
-    public Review(Long id, String username, ReviewState state, Integer peanutScore, Integer eggScore, Integer diaryScore, String commentary) {
+    public Review(Long id, String restaurant, String username, ReviewState state, Integer peanutScore, Integer eggScore, Integer diaryScore, String commentary) {
         this.id = require("id", id);
+        this.restaurant = require("restaurant", restaurant);
         this.username = require("username", username);
         this.state = require("state", state);
         this.peanutScore = peanutScore;

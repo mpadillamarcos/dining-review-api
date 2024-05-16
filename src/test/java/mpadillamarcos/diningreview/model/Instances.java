@@ -12,6 +12,7 @@ public class Instances {
     public static ReviewBuilder dummyReview() {
         return newReview()
                 .id(123L)
+                .restaurant("Bella Trattoria")
                 .username("maria123")
                 .state(PENDING)
                 .peanutScore(3)
