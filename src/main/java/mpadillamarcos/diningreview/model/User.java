@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,25 +17,35 @@ import static mpadillamarcos.diningreview.utils.Checks.require;
 public class User {
 
     @Id
+    @NotNull
     private String username;
 
     @Column(name = "city")
+    @NotNull
     private String city;
 
     @Column(name = "state")
+    @NotNull
     private String state;
 
     @Column(name = "zipcode")
+    @NotNull
     private Integer zipcode;
 
     @Column(name = "peanut")
+    @NotNull
     private Boolean peanut;
 
     @Column(name = "egg")
+    @NotNull
     private Boolean egg;
 
     @Column(name = "diary")
+    @NotNull
     private Boolean diary;
+
+    public User() {
+    }
 
     public User(String username, String city, String state, Integer zipcode, Boolean peanut, Boolean egg, Boolean diary) {
         this.username = require("username", username);
