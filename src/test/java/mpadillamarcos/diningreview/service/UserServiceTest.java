@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
 import static mpadillamarcos.diningreview.model.Instances.dummyUpdateRequestBuilder;
 import static mpadillamarcos.diningreview.model.Instances.dummyUser;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -113,6 +115,19 @@ class UserServiceTest {
                     .returns(true, User::getPeanut)
                     .returns(true, User::getEgg)
                     .returns(true, User::getDairy);
+        }
+    }
+
+    @Nested
+    class Find {
+        @Test
+        void returns_user_information() {
+            var user = dummyUser().username("maria123").build();
+            service.createNewUser(user);
+
+            var response = service.find("maria123");
+
+            assertThat(response).isEqualTo(Optional.of(user));
         }
     }
 

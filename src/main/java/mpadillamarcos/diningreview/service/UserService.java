@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public Optional<User> find(String username) {
-        return Optional.empty();
+        return repository.findById(username);
     }
 
 }
