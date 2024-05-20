@@ -1,6 +1,7 @@
 package mpadillamarcos.diningreview.service;
 
 import lombok.RequiredArgsConstructor;
+import mpadillamarcos.diningreview.exception.NotFoundException;
 import mpadillamarcos.diningreview.exception.UsernameNotAvailableException;
 import mpadillamarcos.diningreview.model.UpdateRequest;
 import mpadillamarcos.diningreview.model.User;
@@ -27,7 +28,7 @@ public class UserService {
                 .zipcode(request.getZipcode())
                 .peanut(request.getPeanut())
                 .egg(request.getEgg())
-                .diary(request.getDiary())
+                .dairy(request.getDairy())
                 .build();
 
         repository.save(user);
@@ -36,7 +37,23 @@ public class UserService {
     }
 
     public User update(String username, UpdateRequest request) {
-        return null;
+        if (!repository.existsById(username)) {
+            throw new NotFoundException("Username " + username + " does not exist");
+        }
+
+        var updatedUser = newUser()
+                .username(username)
+                .city(request.getCity())
+                .state(request.getState())
+                .zipcode(request.getZipcode())
+                .peanut(request.getPeanut())
+                .egg(request.getEgg())
+                .dairy(request.getDairy())
+                .build();
+
+        repository.save(updatedUser);
+
+        return updatedUser;
     }
 
 }

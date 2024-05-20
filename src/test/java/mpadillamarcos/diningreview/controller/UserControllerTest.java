@@ -44,7 +44,7 @@ class UserControllerTest {
                         "state": "California",
                         "zipcode": 94118,
                         "peanut": true,
-                        "diary": false
+                        "dairy": false
                     }
                     """;
 
@@ -64,7 +64,7 @@ class UserControllerTest {
                         "zipcode": 94118,
                         "peanut": true,
                         "egg": true,
-                        "diary": false
+                        "dairy": false
                     }
                     """;
 
@@ -82,7 +82,7 @@ class UserControllerTest {
                             .zipcode(94118)
                             .peanut(true)
                             .egg(true)
-                            .diary(false)
+                            .dairy(false)
                             .build()
                     );
         }
@@ -91,12 +91,41 @@ class UserControllerTest {
 
     @Nested
     class Update {
+
+        @Test
+        void returns_bad_request_when_required_body_is_null() throws Exception {
+            mockMvc.perform(put("/users/maria123")
+                            .content("{}")
+                            .contentType(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        void returns_bad_request_when_required_body_is_not_complete() throws Exception {
+            String requestBody = """
+                    {
+                        "zipcode": 94118,
+                        "peanut": true,
+                        "dairy": false
+                    }
+                    """;
+
+            mockMvc.perform(put("/users/maria123")
+                            .content(requestBody)
+                            .contentType(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
+
         @Test
         void returns_bad_request_when_required_body_is_not_valid() throws Exception {
             String requestBody = """
                     {
-                        "zipcode": "potato",
-                        "peanut": true
+                        "city": "San Francisco",
+                        "state": "California",
+                        "zipcode": 94118,
+                        "peanut": "yes",
+                        "egg": true
+                        "dairy": false
                     }
                     """;
 
@@ -110,8 +139,11 @@ class UserControllerTest {
         void returns_ok_when_all_required_parameters_are_valid() throws Exception {
             String requestBody = """
                     {
+                        "city": "San Francisco",
                         "state": "California",
                         "zipcode": 94118,
+                        "peanut": true,
+                        "egg": true,
                         "dairy": true
                     }
                     """;
@@ -123,16 +155,16 @@ class UserControllerTest {
                     .andExpect(status().isOk());
 
             var expectedRequest = dummyUpdateRequestBuilder()
+                    .city("San Francisco")
                     .state("California")
                     .zipcode(94118)
+                    .peanut(true)
+                    .egg(true)
                     .dairy(true)
                     .build();
 
             verify(userService, times(1))
                     .update("maria123", expectedRequest);
         }
-
     }
-
-
 }

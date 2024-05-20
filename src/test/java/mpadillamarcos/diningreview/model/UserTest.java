@@ -35,7 +35,7 @@ class UserTest {
                 .zipcode(82716)
                 .peanut(true)
                 .egg(false)
-                .diary(true)
+                .dairy(true)
                 .build();
 
         assertThat(user)
@@ -45,7 +45,7 @@ class UserTest {
                 .returns(82716, User::getZipcode)
                 .returns(true, User::getPeanut)
                 .returns(false, User::getEgg)
-                .returns(true, User::getDiary);
+                .returns(true, User::getDairy);
     }
 
     static List<Arguments> usersWithMissingData() {
@@ -56,7 +56,7 @@ class UserTest {
                 Arguments.arguments("zipcode", dummyUser().zipcode(null)),
                 Arguments.arguments("peanut", dummyUser().peanut(null)),
                 Arguments.arguments("egg", dummyUser().egg(null)),
-                Arguments.arguments("diary", dummyUser().diary(null))
+                Arguments.arguments("dairy", dummyUser().dairy(null))
         );
     }
 

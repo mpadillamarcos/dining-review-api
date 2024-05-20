@@ -32,20 +32,20 @@ public class Review {
     @Column(name = "egg-score")
     private Integer eggScore;
 
-    @Column(name = "diary-score")
-    private Integer diaryScore;
+    @Column(name = "dairy-score")
+    private Integer dairyScore;
 
     @Column(name = "commentary")
     private String commentary;
 
-    public Review(Long id, String restaurant, String username, ReviewState state, Integer peanutScore, Integer eggScore, Integer diaryScore, String commentary) {
+    public Review(Long id, String restaurant, String username, ReviewState state, Integer peanutScore, Integer eggScore, Integer dairyScore, String commentary) {
         this.id = require("id", id);
         this.restaurant = require("restaurant", restaurant);
         this.username = require("username", username);
         this.state = require("state", state);
         this.peanutScore = peanutScore;
         this.eggScore = eggScore;
-        this.diaryScore = diaryScore;
+        this.dairyScore = dairyScore;
         this.commentary = commentary;
     }
 

@@ -40,21 +40,21 @@ public class User {
     @NotNull
     private Boolean egg;
 
-    @Column(name = "diary")
+    @Column(name = "dairy")
     @NotNull
-    private Boolean diary;
+    private Boolean dairy;
 
     public User() {
     }
 
-    public User(String username, String city, String state, Integer zipcode, Boolean peanut, Boolean egg, Boolean diary) {
+    public User(String username, String city, String state, Integer zipcode, Boolean peanut, Boolean egg, Boolean dairy) {
         this.username = require("username", username);
         this.city = require("city", city);
         this.state = require("state", state);
         this.zipcode = require("zipcode", zipcode);
         this.peanut = require("peanut", peanut);
         this.egg = require("egg", egg);
-        this.diary = require("diary", diary);
+        this.dairy = require("dairy", dairy);
     }
 
     public static UserBuilder newUser() {

@@ -2,11 +2,12 @@ package mpadillamarcos.diningreview.model;
 
 import mpadillamarcos.diningreview.model.User.UserBuilder;
 
-import static mpadillamarcos.diningreview.model.Restaurant.*;
+import static mpadillamarcos.diningreview.model.Restaurant.RestaurantBuilder;
+import static mpadillamarcos.diningreview.model.Restaurant.newRestaurant;
 import static mpadillamarcos.diningreview.model.Review.ReviewBuilder;
 import static mpadillamarcos.diningreview.model.Review.newReview;
 import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
-import static mpadillamarcos.diningreview.model.UpdateRequest.*;
+import static mpadillamarcos.diningreview.model.UpdateRequest.updateRequestBuilder;
 import static mpadillamarcos.diningreview.model.User.newUser;
 
 public class Instances {
@@ -18,7 +19,7 @@ public class Instances {
                 .zipcode(94118)
                 .peanut(3F)
                 .egg(4.4F)
-                .diary(2.3F)
+                .dairy(2.3F)
                 .total(3.23F);
     }
 
@@ -30,7 +31,7 @@ public class Instances {
                 .state(PENDING)
                 .peanutScore(3)
                 .eggScore(5)
-                .diaryScore(4)
+                .dairyScore(4)
                 .commentary("Good job");
     }
 
@@ -42,7 +43,7 @@ public class Instances {
                 .zipcode(94118)
                 .peanut(false)
                 .egg(false)
-                .diary(true);
+                .dairy(true);
 
     }
 

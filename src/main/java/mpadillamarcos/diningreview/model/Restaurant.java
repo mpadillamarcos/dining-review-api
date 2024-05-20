@@ -28,19 +28,19 @@ public class Restaurant {
     @Column(name = "egg-score")
     private Float egg;
 
-    @Column(name = "diary-score")
-    private Float diary;
+    @Column(name = "dairy-score")
+    private Float dairy;
 
     @Column(name = "total-score")
     private Float total;
 
-    public Restaurant(Long id, String name, Integer zipcode, Float peanut, Float egg, Float diary, Float total) {
+    public Restaurant(Long id, String name, Integer zipcode, Float peanut, Float egg, Float dairy, Float total) {
         this.id = require("id", id);
         this.name = require("name", name);
         this.zipcode = require("zipcode", zipcode);
         this.peanut = peanut;
         this.egg = egg;
-        this.diary = diary;
+        this.dairy = dairy;
         this.total = total;
     }
 
