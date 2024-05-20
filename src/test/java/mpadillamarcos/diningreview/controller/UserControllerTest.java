@@ -9,10 +9,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static mpadillamarcos.diningreview.model.Instances.dummyUpdateRequestBuilder;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = UserController.class)
@@ -83,6 +85,51 @@ class UserControllerTest {
                             .diary(false)
                             .build()
                     );
+        }
+
+    }
+
+    @Nested
+    class Update {
+        @Test
+        void returns_bad_request_when_required_body_is_not_valid() throws Exception {
+            String requestBody = """
+                    {
+                        "zipcode": "potato",
+                        "peanut": true
+                    }
+                    """;
+
+            mockMvc.perform(put("/users/maria123")
+                            .content(requestBody)
+                            .contentType(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        void returns_ok_when_all_required_parameters_are_valid() throws Exception {
+            String requestBody = """
+                    {
+                        "state": "California",
+                        "zipcode": 94118,
+                        "dairy": true
+                    }
+                    """;
+
+            mockMvc.perform(put(
+                            "/users/maria123")
+                            .content(requestBody)
+                            .contentType(APPLICATION_JSON))
+                    .andExpect(status().isOk());
+
+            var expectedRequest = dummyUpdateRequestBuilder()
+                    .state("California")
+                    .zipcode(94118)
+                    .dairy(true)
+                    .build();
+
+            verify(userService, times(1))
+                    .update("maria123", expectedRequest);
         }
 
     }

@@ -2,11 +2,12 @@ package mpadillamarcos.diningreview.service;
 
 import lombok.RequiredArgsConstructor;
 import mpadillamarcos.diningreview.exception.UsernameNotAvailableException;
+import mpadillamarcos.diningreview.model.UpdateRequest;
 import mpadillamarcos.diningreview.model.User;
 import mpadillamarcos.diningreview.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import static mpadillamarcos.diningreview.model.User.*;
+import static mpadillamarcos.diningreview.model.User.newUser;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class UserService {
         return user;
     }
 
-    public User update(User user) {
+    public User update(String username, UpdateRequest request) {
         return null;
     }
 

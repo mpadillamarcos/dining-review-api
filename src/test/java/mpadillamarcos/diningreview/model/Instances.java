@@ -6,6 +6,7 @@ import static mpadillamarcos.diningreview.model.Restaurant.*;
 import static mpadillamarcos.diningreview.model.Review.ReviewBuilder;
 import static mpadillamarcos.diningreview.model.Review.newReview;
 import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
+import static mpadillamarcos.diningreview.model.UpdateRequest.*;
 import static mpadillamarcos.diningreview.model.User.newUser;
 
 public class Instances {
@@ -43,5 +44,9 @@ public class Instances {
                 .egg(false)
                 .diary(true);
 
+    }
+
+    public static UpdateRequest.UpdateRequestBuilder dummyUpdateRequestBuilder() {
+        return updateRequestBuilder();
     }
 }
