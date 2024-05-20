@@ -8,6 +8,8 @@ import mpadillamarcos.diningreview.model.User;
 import mpadillamarcos.diningreview.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static mpadillamarcos.diningreview.model.User.newUser;
 
 @Service
@@ -40,6 +42,10 @@ public class UserService {
                 .build();
 
         repository.save(updatedUser);
+    }
+
+    public Optional<User> find(String username) {
+        return Optional.empty();
     }
 
 }

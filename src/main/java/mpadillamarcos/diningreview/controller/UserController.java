@@ -2,10 +2,13 @@ package mpadillamarcos.diningreview.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import mpadillamarcos.diningreview.exception.NotFoundException;
 import mpadillamarcos.diningreview.model.UpdateRequest;
 import mpadillamarcos.diningreview.model.User;
 import mpadillamarcos.diningreview.service.UserService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +28,10 @@ public class UserController {
 
     @GetMapping("/users/{username}")
     public User findUser(@PathVariable String username) {
-        return null;
+        Optional<User> user = service.find(username);
+        if (user.isEmpty()) {
+            throw new NotFoundException("Username not found");
+        }
+        return user.get();
     }
 }
