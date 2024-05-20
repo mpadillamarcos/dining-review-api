@@ -26,4 +26,11 @@ public class GlobalExceptionHandler {
                 .body(Map.of("message", exception.getMessage()));
     }
 
+    @ExceptionHandler(RestaurantAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> restaurantAlreadyExists(RestaurantAlreadyExistsException exception) {
+        return ResponseEntity
+                .status(CONFLICT)
+                .body(Map.of("message", exception.getMessage()));
+    }
+
 }

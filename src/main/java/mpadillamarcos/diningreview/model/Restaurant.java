@@ -35,13 +35,17 @@ public class Restaurant {
     private Float total;
 
     public Restaurant(Long id, String name, Integer zipcode, Float peanut, Float egg, Float dairy, Float total) {
-        this.id = require("id", id);
+        this.id = id;
         this.name = require("name", name);
         this.zipcode = require("zipcode", zipcode);
         this.peanut = peanut;
         this.egg = egg;
         this.dairy = dairy;
         this.total = total;
+    }
+
+    public Restaurant() {
+
     }
 
     public static RestaurantBuilder newRestaurant() {
