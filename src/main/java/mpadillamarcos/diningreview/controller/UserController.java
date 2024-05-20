@@ -14,12 +14,17 @@ public class UserController {
     private final UserService service;
 
     @PostMapping("/users")
-    public User createNewUser(@Valid @RequestBody User request) {
-        return service.createNewUser(request);
+    public void createNewUser(@Valid @RequestBody User request) {
+        service.createNewUser(request);
     }
 
     @PutMapping("/users/{username}")
-    public User updateUser(@PathVariable String username, @Valid @RequestBody UpdateRequest request) {
-        return service.update(username, request);
+    public void updateUser(@PathVariable String username, @Valid @RequestBody UpdateRequest request) {
+        service.update(username, request);
+    }
+
+    @GetMapping("/users/{username}")
+    public User findUser(@PathVariable String username) {
+        return null;
     }
 }

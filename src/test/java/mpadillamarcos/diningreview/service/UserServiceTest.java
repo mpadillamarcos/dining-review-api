@@ -25,32 +25,10 @@ class UserServiceTest {
 
     @Nested
     class CreateNewUser {
-        @Test
-        void returns_new_user() {
-            var newUser = service.createNewUser(dummyUser()
-                    .username("maria456")
-                    .city("Scranton")
-                    .state("Pennsylvania")
-                    .zipcode(18509)
-                    .peanut(true)
-                    .egg(false)
-                    .dairy(true)
-                    .build());
-
-            assertThat(newUser)
-                    .returns("maria456", User::getUsername)
-                    .returns("Scranton", User::getCity)
-                    .returns("Pennsylvania", User::getState)
-                    .returns(18509, User::getZipcode)
-                    .returns(true, User::getPeanut)
-                    .returns(false, User::getEgg)
-                    .returns(true, User::getDairy);
-
-        }
 
         @Test
         void persists_new_user() {
-            var newUser = service.createNewUser(dummyUser()
+            var newUser = dummyUser()
                     .username("maria789")
                     .city("Scranton")
                     .state("Pennsylvania")
@@ -58,7 +36,9 @@ class UserServiceTest {
                     .peanut(true)
                     .egg(false)
                     .dairy(true)
-                    .build());
+                    .build();
+
+            service.createNewUser(newUser);
 
             assertThat(repository.findById(newUser.getUsername()))
                     .get()
@@ -73,7 +53,7 @@ class UserServiceTest {
 
         @Test
         void throws_exception_when_username_already_exists() {
-            var newUser1 = service.createNewUser(dummyUser()
+            var newUser1 = dummyUser()
                     .username("maria")
                     .city("Scranton")
                     .state("Pennsylvania")
@@ -81,7 +61,10 @@ class UserServiceTest {
                     .peanut(true)
                     .egg(false)
                     .dairy(true)
-                    .build());
+                    .build();
+
+            service.createNewUser(newUser1);
+
             var newUser2 = dummyUser()
                     .username("maria")
                     .city("San Francisco")
@@ -104,31 +87,6 @@ class UserServiceTest {
             var request = dummyUpdateRequestBuilder().peanut(false).build();
 
             assertThrows(NotFoundException.class, () -> service.update(username, request));
-        }
-
-        @Test
-        void returns_updated_user() {
-            var user = dummyUser().username("maria008").build();
-            service.createNewUser(user);
-
-            var updateRequest = dummyUpdateRequestBuilder()
-                    .city("San Francisco")
-                    .state("California")
-                    .zipcode(94118)
-                    .peanut(true)
-                    .egg(true)
-                    .dairy(true)
-                    .build();
-            var updatedUser = service.update(user.getUsername(), updateRequest);
-
-            assertThat(updatedUser)
-                    .returns("maria008", User::getUsername)
-                    .returns("San Francisco", User::getCity)
-                    .returns("California", User::getState)
-                    .returns(94118, User::getZipcode)
-                    .returns(true, User::getPeanut)
-                    .returns(true, User::getEgg)
-                    .returns(true, User::getDairy);
         }
 
         @Test

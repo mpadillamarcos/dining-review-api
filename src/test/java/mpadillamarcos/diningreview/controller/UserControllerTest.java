@@ -62,9 +62,9 @@ class UserControllerTest {
                         "city": "San Francisco",
                         "state": "California",
                         "zipcode": 94118,
-                        "peanut": true,
-                        "egg": true,
-                        "dairy": false
+                        "peanut": false,
+                        "egg": false,
+                        "dairy": true
                     }
                     """;
 
@@ -80,9 +80,9 @@ class UserControllerTest {
                             .city("San Francisco")
                             .state("California")
                             .zipcode(94118)
-                            .peanut(true)
-                            .egg(true)
-                            .dairy(false)
+                            .peanut(false)
+                            .egg(false)
+                            .dairy(true)
                             .build()
                     );
         }

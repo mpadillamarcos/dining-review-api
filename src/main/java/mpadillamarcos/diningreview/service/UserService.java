@@ -16,27 +16,15 @@ public class UserService {
 
     private final UserRepository repository;
 
-    public User createNewUser(User request) {
+    public void createNewUser(User request) {
         if (repository.existsById(request.getUsername())) {
             throw new UsernameNotAvailableException("Username " + request.getUsername() + " is already taken");
         }
 
-        var user = newUser()
-                .username(request.getUsername())
-                .city(request.getCity())
-                .state(request.getState())
-                .zipcode(request.getZipcode())
-                .peanut(request.getPeanut())
-                .egg(request.getEgg())
-                .dairy(request.getDairy())
-                .build();
-
-        repository.save(user);
-
-        return user;
+        repository.save(request);
     }
 
-    public User update(String username, UpdateRequest request) {
+    public void update(String username, UpdateRequest request) {
         if (!repository.existsById(username)) {
             throw new NotFoundException("Username " + username + " does not exist");
         }
@@ -52,8 +40,6 @@ public class UserService {
                 .build();
 
         repository.save(updatedUser);
-
-        return updatedUser;
     }
 
 }
