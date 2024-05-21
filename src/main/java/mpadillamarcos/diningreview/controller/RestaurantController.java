@@ -8,6 +8,7 @@ import mpadillamarcos.diningreview.model.RestaurantRequest;
 import mpadillamarcos.diningreview.service.RestaurantService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,6 +30,19 @@ public class RestaurantController {
         }
 
         return restaurant.get();
+    }
+
+    @GetMapping("/restaurants")
+    public List<Restaurant> findWithQueryParams(
+            @RequestParam(required = false) Integer zipcode,
+            @RequestParam(required = false) String allergy
+    ) {
+        var restaurants = service.findRestaurants(zipcode, allergy);
+        if (restaurants.isEmpty()) {
+            throw new NotFoundException("No results found");
+        }
+
+        return restaurants;
     }
 
 }

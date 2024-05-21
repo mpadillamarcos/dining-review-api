@@ -7,7 +7,10 @@ import mpadillamarcos.diningreview.model.RestaurantRequest;
 import mpadillamarcos.diningreview.repository.RestaurantRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+
+import static java.util.Collections.emptyList;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +36,17 @@ public class RestaurantService {
 
     public Optional<Restaurant> findRestaurantById(Long id) {
         return repository.findById(id);
+    }
+
+    public List<Restaurant> findRestaurants(Integer zipcode, String allergy) {
+        return emptyList();
+    }
+
+    public List<Restaurant> findRestaurants(Integer zipcode) {
+        return emptyList();
+    }
+
+    public List<Restaurant> findRestaurants(String allergy) {
+        return emptyList();
     }
 }
