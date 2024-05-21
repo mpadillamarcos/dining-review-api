@@ -23,7 +23,7 @@ public class RestaurantController {
 
     @GetMapping("/restaurants/{id}")
     public Restaurant findRestaurant(@PathVariable Long id) {
-        Optional<Restaurant> restaurant = service.find(id);
+        Optional<Restaurant> restaurant = service.findRestaurantById(id);
         if (restaurant.isEmpty()) {
             throw new NotFoundException("Restaurant not found");
         }

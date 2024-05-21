@@ -31,7 +31,7 @@ public class RestaurantService {
         return insertedRestaurant.getId();
     }
 
-    public Optional<Restaurant> find(Long id) {
-        return Optional.empty();
+    public Optional<Restaurant> findRestaurantById(Long id) {
+        return repository.findById(id);
     }
 }

@@ -78,7 +78,7 @@ class RestaurantControllerTest {
         void returns_restaurant_information_when_it_exists() throws Exception {
             var restaurant = dummyRestaurant().peanut(null).egg(null).dairy(null).total(null).build();
 
-            when(restaurantService.find(restaurant.getId()))
+            when(restaurantService.findRestaurantById(restaurant.getId()))
                     .thenReturn(Optional.of(restaurant));
 
             mockMvc.perform(get("/restaurants/{id}", restaurant.getId()))
@@ -97,7 +97,7 @@ class RestaurantControllerTest {
             var restaurant = dummyRestaurant().peanut(null).egg(null).dairy(null).total(null).build();
             var id = restaurant.getId();
 
-            when(restaurantService.find(id))
+            when(restaurantService.findRestaurantById(id))
                     .thenReturn(Optional.empty());
 
             mockMvc.perform(get("/restaurants/{id}", id))

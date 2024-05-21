@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
+import static mpadillamarcos.diningreview.model.Instances.dummyRestaurant;
 import static mpadillamarcos.diningreview.model.Instances.dummyRestaurantRequestBuilder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,6 +44,28 @@ class RestaurantServiceTest {
 
             var restaurant2 = dummyRestaurantRequestBuilder().name("Pizzeria").zipcode(12345).build();
             assertThrows(RestaurantAlreadyExistsException.class, () -> service.newRestaurant(restaurant2));
+        }
+    }
+
+    @Nested
+    class FindRestaurantById {
+        @Test
+        void returns_restaurant_information() {
+            var request = dummyRestaurantRequestBuilder().name("La Toscana").zipcode(40504).build();
+            var id = service.newRestaurant(request);
+            var restaurant = dummyRestaurant()
+                    .id(id)
+                    .name("La Toscana")
+                    .zipcode(40504)
+                    .peanut(null)
+                    .egg(null)
+                    .dairy(null)
+                    .total(null)
+                    .build();
+
+            var response = service.findRestaurantById(id);
+
+            assertThat(response).isEqualTo(Optional.of(restaurant));
         }
     }
 

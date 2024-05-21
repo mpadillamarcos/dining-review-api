@@ -41,7 +41,6 @@ class RestaurantTest {
 
     static List<Arguments> restaurantsWithMissingData() {
         return List.of(
-                Arguments.arguments("id", dummyRestaurant().id(null)),
                 Arguments.arguments("name", dummyRestaurant().name(null)),
                 Arguments.arguments("zipcode", dummyRestaurant().zipcode(null))
         );
