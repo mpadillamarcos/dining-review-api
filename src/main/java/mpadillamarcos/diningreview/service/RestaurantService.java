@@ -7,6 +7,8 @@ import mpadillamarcos.diningreview.model.RestaurantRequest;
 import mpadillamarcos.diningreview.repository.RestaurantRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class RestaurantService {
@@ -27,5 +29,9 @@ public class RestaurantService {
         var insertedRestaurant = repository.save(restaurant);
 
         return insertedRestaurant.getId();
+    }
+
+    public Optional<Restaurant> find(Long id) {
+        return Optional.empty();
     }
 }

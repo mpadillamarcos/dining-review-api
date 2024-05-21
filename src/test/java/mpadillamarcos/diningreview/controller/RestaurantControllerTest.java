@@ -8,11 +8,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Optional;
+
+import static mpadillamarcos.diningreview.model.Instances.dummyRestaurant;
 import static mpadillamarcos.diningreview.model.Instances.dummyRestaurantRequestBuilder;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = RestaurantController.class)
@@ -64,6 +69,41 @@ class RestaurantControllerTest {
 
             verify(restaurantService, times(1))
                     .newRestaurant(dummyRestaurantRequestBuilder().name("La Trattoria").zipcode(12345).build());
+        }
+    }
+
+    @Nested
+    class FindRestaurant {
+        @Test
+        void returns_restaurant_information_when_it_exists() throws Exception {
+            var restaurant = dummyRestaurant().peanut(null).egg(null).dairy(null).total(null).build();
+
+            when(restaurantService.find(restaurant.getId()))
+                    .thenReturn(Optional.of(restaurant));
+
+            mockMvc.perform(get("/restaurants/{id}", restaurant.getId()))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id", equalTo(restaurant.getId().intValue())))
+                    .andExpect(jsonPath("$.name", equalTo(restaurant.getName())))
+                    .andExpect(jsonPath("$.zipcode", equalTo(restaurant.getZipcode())))
+                    .andExpect(jsonPath("$.peanut").doesNotHaveJsonPath())
+                    .andExpect(jsonPath("$.egg").doesNotHaveJsonPath())
+                    .andExpect(jsonPath("$.dairy").doesNotHaveJsonPath())
+                    .andExpect(jsonPath("$.total").doesNotHaveJsonPath());
+        }
+
+        @Test
+        void returns_not_found_when_restaurant_id_does_not_exist() throws Exception {
+            var restaurant = dummyRestaurant().peanut(null).egg(null).dairy(null).total(null).build();
+            var id = restaurant.getId();
+
+            when(restaurantService.find(id))
+                    .thenReturn(Optional.empty());
+
+            mockMvc.perform(get("/restaurants/{id}", id))
+                    .andExpect(status().isNotFound())
+                    .andExpect(jsonPath("$.message", equalTo("Restaurant not found")));
+
         }
     }
 

@@ -2,11 +2,13 @@ package mpadillamarcos.diningreview.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import mpadillamarcos.diningreview.exception.NotFoundException;
+import mpadillamarcos.diningreview.model.Restaurant;
 import mpadillamarcos.diningreview.model.RestaurantRequest;
 import mpadillamarcos.diningreview.service.RestaurantService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +19,16 @@ public class RestaurantController {
     @PostMapping("/restaurants")
     public void newRestaurant(@Valid @RequestBody RestaurantRequest request) {
         service.newRestaurant(request);
+    }
+
+    @GetMapping("/restaurants/{id}")
+    public Restaurant findRestaurant(@PathVariable Long id) {
+        Optional<Restaurant> restaurant = service.find(id);
+        if (restaurant.isEmpty()) {
+            throw new NotFoundException("Restaurant not found");
+        }
+
+        return restaurant.get();
     }
 
 }
