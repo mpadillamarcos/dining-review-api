@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Collections.emptyList;
-
 @Service
 @RequiredArgsConstructor
 public class RestaurantService {
@@ -39,14 +37,26 @@ public class RestaurantService {
     }
 
     public List<Restaurant> findRestaurants(Integer zipcode, String allergy) {
-        return emptyList();
+        if (allergy.equals("peanut")) {
+            return repository.findByPeanutNotNullAndZipcodeOrderByPeanutDesc(zipcode);
+        } else if (allergy.equals("egg")) {
+            return repository.findByEggNotNullAndZipcodeOrderByEggDesc(zipcode);
+        } else {
+            return repository.findByDairyNotNullAndZipcodeOrderByDairyDesc(zipcode);
+        }
     }
 
     public List<Restaurant> findRestaurants(Integer zipcode) {
-        return emptyList();
+        return repository.findByZipcode(zipcode);
     }
 
     public List<Restaurant> findRestaurants(String allergy) {
-        return emptyList();
+        if (allergy.equals("peanut")) {
+            return repository.findByPeanutNotNullOrderByPeanutDesc();
+        } else if (allergy.equals("egg")) {
+            return repository.findByEggNotNullOrderByEggDesc();
+        } else {
+            return repository.findByDairyNotNullOrderByDairyDesc();
+        }
     }
 }

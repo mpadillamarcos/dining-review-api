@@ -45,7 +45,6 @@ public class Restaurant {
     }
 
     public Restaurant() {
-
     }
 
     public static RestaurantBuilder newRestaurant() {
