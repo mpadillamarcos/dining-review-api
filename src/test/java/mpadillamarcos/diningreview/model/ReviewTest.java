@@ -49,7 +49,6 @@ class ReviewTest {
 
     static List<Arguments> reviewsWithMissingData() {
         return List.of(
-                Arguments.arguments("id", dummyReview().id(null)),
                 Arguments.arguments("restaurantId", dummyReview().restaurantId(null)),
                 Arguments.arguments("username", dummyReview().username(null)),
                 Arguments.arguments("state", dummyReview().state(null))

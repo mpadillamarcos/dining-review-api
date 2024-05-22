@@ -1,9 +1,12 @@
 package mpadillamarcos.diningreview.service;
 
 import lombok.RequiredArgsConstructor;
+import mpadillamarcos.diningreview.model.Review;
 import mpadillamarcos.diningreview.model.ReviewRequest;
 import mpadillamarcos.diningreview.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static mpadillamarcos.diningreview.model.Review.newReview;
 import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
@@ -28,5 +31,9 @@ public class ReviewService {
         var insertedReview = repository.save(review);
 
         return insertedReview.getId();
+    }
+
+    public List<Review> findPendingReviews() {
+        return null;
     }
 }
