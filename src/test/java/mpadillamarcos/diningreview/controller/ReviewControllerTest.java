@@ -98,4 +98,15 @@ class ReviewControllerTest {
         }
     }
 
+    @Nested
+    class Reject {
+        @Test
+        void returns_ok_when_rejecting_review() throws Exception {
+            mockMvc.perform(put("/admin/3/reject"))
+                    .andExpect(status().isOk());
+            verify(reviewService, times(1))
+                    .reject(3L);
+        }
+    }
+
 }

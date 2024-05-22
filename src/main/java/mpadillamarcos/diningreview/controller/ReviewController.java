@@ -32,4 +32,9 @@ public class ReviewController {
     public void accept(@PathVariable Long reviewId) {
         service.accept(reviewId);
     }
+
+    @PutMapping("/admin/{reviewId}/reject")
+    public void reject(@PathVariable Long reviewId) {
+        service.reject(reviewId);
+    }
 }

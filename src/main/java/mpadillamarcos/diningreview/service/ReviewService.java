@@ -47,4 +47,8 @@ public class ReviewService {
 
         repository.save(review);
     }
+
+    public void reject(Long reviewId) {
+
+    }
 }
