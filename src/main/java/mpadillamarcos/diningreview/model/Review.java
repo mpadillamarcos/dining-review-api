@@ -39,7 +39,7 @@ public class Review {
     private String commentary;
 
     public Review(Long id, Long restaurantId, String username, ReviewState state, Integer peanutScore, Integer eggScore, Integer dairyScore, String commentary) {
-        this.id = require("id", id);
+        this.id = id;
         this.restaurantId = require("restaurantId", restaurantId);
         this.username = require("username", username);
         this.state = require("state", state);
@@ -47,6 +47,9 @@ public class Review {
         this.eggScore = eggScore;
         this.dairyScore = dairyScore;
         this.commentary = commentary;
+    }
+
+    public Review() {
     }
 
     public static ReviewBuilder newReview() {
