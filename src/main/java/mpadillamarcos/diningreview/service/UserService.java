@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static mpadillamarcos.diningreview.model.User.newUser;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -27,21 +25,17 @@ public class UserService {
     }
 
     public void update(String username, UpdateRequest request) {
-        if (!repository.existsById(username)) {
-            throw new NotFoundException("Username " + username + " does not exist");
-        }
+        var user = repository.findById(username)
+                .orElseThrow(() -> new NotFoundException("Username " + username + " does not exist"));
 
-        var updatedUser = newUser()
-                .username(username)
-                .city(request.getCity())
-                .state(request.getState())
-                .zipcode(request.getZipcode())
-                .peanut(request.getPeanut())
-                .egg(request.getEgg())
-                .dairy(request.getDairy())
-                .build();
+        user.setCity(request.getCity());
+        user.setState(request.getState());
+        user.setZipcode(request.getZipcode());
+        user.setPeanut(request.getPeanut());
+        user.setEgg(request.getEgg());
+        user.setDairy(request.getDairy());
 
-        repository.save(updatedUser);
+        repository.save(user);
     }
 
     public Optional<User> find(String username) {
