@@ -34,6 +34,6 @@ public class ReviewService {
     }
 
     public List<Review> findPendingReviews() {
-        return null;
+        return repository.findByState(PENDING);
     }
 }

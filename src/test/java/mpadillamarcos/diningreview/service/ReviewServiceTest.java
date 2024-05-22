@@ -7,8 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+import static mpadillamarcos.diningreview.model.Instances.dummyReview;
 import static mpadillamarcos.diningreview.model.Instances.dummyReviewRequestBuilder;
 import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
+import static mpadillamarcos.diningreview.model.ReviewState.REJECTED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -39,6 +43,20 @@ class ReviewServiceTest {
                     .returns(null, Review::getEggScore)
                     .returns(null, Review::getDairyScore)
                     .returns(null, Review::getCommentary);
+        }
+    }
+
+    @Nested
+    class FindPendingReviews {
+        @Test
+        void returns_all_the_pending_reviews() {
+            var review1 = dummyReview().id(1L).restaurantId(2L).username("maria").state(PENDING).build();
+            var review2 = dummyReview().id(2L).restaurantId(3L).username("pepa").state(REJECTED).build();
+            repository.save(review1);
+            repository.save(review2);
+
+            assertThat(service.findPendingReviews())
+                    .containsExactlyElementsOf(List.of(review1));
         }
     }
 
