@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static mpadillamarcos.diningreview.model.Review.newReview;
-import static mpadillamarcos.diningreview.model.ReviewState.ACCEPTED;
-import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
+import static mpadillamarcos.diningreview.model.ReviewState.*;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +40,7 @@ public class ReviewService {
 
     public void accept(Long reviewId) {
         var review = repository.findById(reviewId)
-                .orElseThrow(() -> new NotFoundException("The reivew with id " + reviewId + " does not exist"));
+                .orElseThrow(() -> new NotFoundException("The review with id " + reviewId + " does not exist"));
 
         review.setState(ACCEPTED);
 
@@ -49,6 +48,11 @@ public class ReviewService {
     }
 
     public void reject(Long reviewId) {
+        var review = repository.findById(reviewId)
+                .orElseThrow(() -> new NotFoundException("The review with id " + reviewId + " does not exist"));
 
+        review.setState(REJECTED);
+
+        repository.save(review);
     }
 }

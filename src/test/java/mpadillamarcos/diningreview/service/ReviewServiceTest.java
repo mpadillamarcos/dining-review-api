@@ -80,4 +80,23 @@ class ReviewServiceTest {
                     .returns(ACCEPTED, Review::getState);
         }
     }
+
+    @Nested
+    class Reject {
+        @Test
+        void throws_not_found_when_review_does_not_exist() {
+            assertThrows(NotFoundException.class, () -> service.reject(456L));
+        }
+
+        @Test
+        void persists_state_change_to_rejected() {
+            var review = dummyReview().id(1L).restaurantId(2L).username("maria").build();
+            repository.save(review);
+
+            service.reject(1L);
+
+            assertThat(repository.findById(1L)).get()
+                    .returns(REJECTED, Review::getState);
+        }
+    }
 }
