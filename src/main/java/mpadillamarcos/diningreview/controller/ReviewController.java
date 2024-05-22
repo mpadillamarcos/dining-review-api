@@ -27,4 +27,9 @@ public class ReviewController {
     public List<Review> findPendingReviews() {
         return service.findPendingReviews();
     }
+
+    @PutMapping("/admin/{reviewId}/accept")
+    public void accept(@PathVariable Long reviewId) {
+        service.accept(reviewId);
+    }
 }

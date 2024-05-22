@@ -15,8 +15,7 @@ import static mpadillamarcos.diningreview.model.Instances.dummyReviewRequestBuil
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -85,6 +84,17 @@ class ReviewControllerTest {
                     .andExpect(jsonPath("[1].eggScore", equalTo(review2.getEggScore())))
                     .andExpect(jsonPath("[1].dairyScore", equalTo(review2.getDairyScore())))
                     .andExpect(jsonPath("[1].commentary", equalTo(review2.getCommentary())));
+        }
+    }
+
+    @Nested
+    class Accept {
+        @Test
+        void returns_ok_when_accepting_review() throws Exception {
+            mockMvc.perform(put("/admin/3/accept"))
+                    .andExpect(status().isOk());
+            verify(reviewService, times(1))
+                    .accept(3L);
         }
     }
 

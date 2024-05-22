@@ -36,4 +36,8 @@ public class ReviewService {
     public List<Review> findPendingReviews() {
         return repository.findByState(PENDING);
     }
+
+    public void accept(Long reviewId) {
+
+    }
 }

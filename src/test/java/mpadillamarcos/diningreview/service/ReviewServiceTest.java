@@ -59,5 +59,4 @@ class ReviewServiceTest {
                     .containsExactlyElementsOf(List.of(review1));
         }
     }
-
 }
