@@ -14,33 +14,33 @@ import static mpadillamarcos.diningreview.utils.Checks.require;
 public class Review {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "restaurant")
-    private String restaurant;
+    @Column(name = "restaurant_id", nullable = false)
+    private Long restaurantId;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
 
     @Column(name = "state")
     private ReviewState state;
 
-    @Column(name = "peanut-score")
+    @Column(name = "peanut_score")
     private Integer peanutScore;
 
-    @Column(name = "egg-score")
+    @Column(name = "egg_score")
     private Integer eggScore;
 
-    @Column(name = "dairy-score")
+    @Column(name = "dairy_score")
     private Integer dairyScore;
 
     @Column(name = "commentary")
     private String commentary;
 
-    public Review(Long id, String restaurant, String username, ReviewState state, Integer peanutScore, Integer eggScore, Integer dairyScore, String commentary) {
+    public Review(Long id, Long restaurantId, String username, ReviewState state, Integer peanutScore, Integer eggScore, Integer dairyScore, String commentary) {
         this.id = require("id", id);
-        this.restaurant = require("restaurant", restaurant);
+        this.restaurantId = require("restaurantId", restaurantId);
         this.username = require("username", username);
         this.state = require("state", state);
         this.peanutScore = peanutScore;

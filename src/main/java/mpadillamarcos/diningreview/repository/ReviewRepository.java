@@ -12,5 +12,5 @@ public interface ReviewRepository extends CrudRepository<Review, Long> {
 
     List<Review> findByState(ReviewState state);
 
-    List<Review> findByStateAndRestaurant(ReviewState state, String restaurant);
+    List<Review> findByStateAndRestaurantId(ReviewState state, Long restaurantId);
 }

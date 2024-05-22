@@ -26,12 +26,12 @@ class ReviewTest {
     @Test
     void creates_review_with_builder_values() {
         var id = 1234L;
-        var restaurant = "Encanto Restaurant & Bar";
+        var restaurantId = 7L;
         var username = "Pepe123";
 
         var review = newReview()
                 .id(id)
-                .restaurant(restaurant)
+                .restaurantId(restaurantId)
                 .username(username)
                 .state(ACCEPTED)
                 .eggScore(1)
@@ -40,7 +40,7 @@ class ReviewTest {
 
         assertThat(review)
                 .returns(id, Review::getId)
-                .returns(restaurant, Review::getRestaurant)
+                .returns(restaurantId, Review::getRestaurantId)
                 .returns(username, Review::getUsername)
                 .returns(ACCEPTED, Review::getState)
                 .returns(1, Review::getEggScore)
@@ -50,7 +50,7 @@ class ReviewTest {
     static List<Arguments> reviewsWithMissingData() {
         return List.of(
                 Arguments.arguments("id", dummyReview().id(null)),
-                Arguments.arguments("restaurant", dummyReview().restaurant(null)),
+                Arguments.arguments("restaurantId", dummyReview().restaurantId(null)),
                 Arguments.arguments("username", dummyReview().username(null)),
                 Arguments.arguments("state", dummyReview().state(null))
         );

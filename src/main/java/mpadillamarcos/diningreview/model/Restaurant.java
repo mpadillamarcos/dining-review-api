@@ -13,7 +13,7 @@ import static mpadillamarcos.diningreview.utils.Checks.require;
 public class Restaurant {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -22,16 +22,16 @@ public class Restaurant {
     @Column(name = "zipcode")
     private Integer zipcode;
 
-    @Column(name = "peanut-score")
+    @Column(name = "peanut_score")
     private Float peanut;
 
-    @Column(name = "egg-score")
+    @Column(name = "egg_score")
     private Float egg;
 
-    @Column(name = "dairy-score")
+    @Column(name = "dairy_score")
     private Float dairy;
 
-    @Column(name = "total-score")
+    @Column(name = "total_score")
     private Float total;
 
     public Restaurant(Long id, String name, Integer zipcode, Float peanut, Float egg, Float dairy, Float total) {
