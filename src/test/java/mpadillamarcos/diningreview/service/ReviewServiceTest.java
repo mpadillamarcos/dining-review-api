@@ -1,5 +1,6 @@
 package mpadillamarcos.diningreview.service;
 
+import mpadillamarcos.diningreview.exception.NotFoundException;
 import mpadillamarcos.diningreview.model.Review;
 import mpadillamarcos.diningreview.repository.ReviewRepository;
 import org.junit.jupiter.api.Nested;
@@ -11,9 +12,9 @@ import java.util.List;
 
 import static mpadillamarcos.diningreview.model.Instances.dummyReview;
 import static mpadillamarcos.diningreview.model.Instances.dummyReviewRequestBuilder;
-import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
-import static mpadillamarcos.diningreview.model.ReviewState.REJECTED;
+import static mpadillamarcos.diningreview.model.ReviewState.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class ReviewServiceTest {
@@ -57,6 +58,26 @@ class ReviewServiceTest {
 
             assertThat(service.findPendingReviews())
                     .containsExactlyElementsOf(List.of(review1));
+        }
+    }
+
+    @Nested
+    class Accept {
+        @Test
+        void throws_not_found_when_review_does_not_exist() {
+            assertThrows(NotFoundException.class, () -> service.accept(456L));
+        }
+
+        @Test
+        void persists_state_change_to_accepted() {
+            var review = dummyReview().id(1L).restaurantId(2L).username("maria").build();
+            repository.save(review);
+
+            service.accept(1L);
+
+            assertThat(repository.findById(1L))
+                    .get()
+                    .returns(ACCEPTED, Review::getState);
         }
     }
 }
