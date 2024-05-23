@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UpdateRequest {
+public class UserUpdateRequest {
 
     @NotNull
     private String city;
@@ -26,7 +26,7 @@ public class UpdateRequest {
     @NotNull
     private Boolean dairy;
 
-    public static UpdateRequestBuilder updateRequestBuilder() {
-        return new UpdateRequestBuilder();
+    public static UserUpdateRequestBuilder userUpdateRequestBuilder() {
+        return new UserUpdateRequestBuilder();
     }
 }

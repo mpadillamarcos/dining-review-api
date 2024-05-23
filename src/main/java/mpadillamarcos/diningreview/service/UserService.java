@@ -3,7 +3,7 @@ package mpadillamarcos.diningreview.service;
 import lombok.RequiredArgsConstructor;
 import mpadillamarcos.diningreview.exception.NotFoundException;
 import mpadillamarcos.diningreview.exception.UsernameNotAvailableException;
-import mpadillamarcos.diningreview.model.UpdateRequest;
+import mpadillamarcos.diningreview.model.UserUpdateRequest;
 import mpadillamarcos.diningreview.model.User;
 import mpadillamarcos.diningreview.model.UserRequest;
 import mpadillamarcos.diningreview.repository.UserRepository;
@@ -35,7 +35,7 @@ public class UserService {
         repository.save(user);
     }
 
-    public void update(String username, UpdateRequest request) {
+    public void update(String username, UserUpdateRequest request) {
         var user = repository.findById(username)
                 .orElseThrow(() -> new NotFoundException("Username " + username + " does not exist"));
 

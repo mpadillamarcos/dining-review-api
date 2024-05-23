@@ -9,7 +9,7 @@ import static mpadillamarcos.diningreview.model.Review.ReviewBuilder;
 import static mpadillamarcos.diningreview.model.Review.newReview;
 import static mpadillamarcos.diningreview.model.ReviewRequest.reviewRequestBuilder;
 import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
-import static mpadillamarcos.diningreview.model.UpdateRequest.updateRequestBuilder;
+import static mpadillamarcos.diningreview.model.UserUpdateRequest.userUpdateRequestBuilder;
 import static mpadillamarcos.diningreview.model.User.newUser;
 import static mpadillamarcos.diningreview.model.UserRequest.*;
 
@@ -50,8 +50,8 @@ public class Instances {
 
     }
 
-    public static UpdateRequest.UpdateRequestBuilder dummyUpdateRequestBuilder() {
-        return updateRequestBuilder();
+    public static UserUpdateRequest.UserUpdateRequestBuilder dummyUpdateRequestBuilder() {
+        return userUpdateRequestBuilder();
     }
 
     public static UserRequestBuilder dummyUserRequestBuilder() {
