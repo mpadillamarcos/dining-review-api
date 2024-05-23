@@ -169,16 +169,6 @@ class RestaurantControllerTest {
                     .andExpect(jsonPath("$[1].total", equalTo(3.67)));
 
         }
-
-        @Test
-        void returns_not_found_when_none_of_the_restaurants_match_the_query_params() throws Exception {
-            when(restaurantService.findRestaurants(19915, "peanut"))
-                    .thenReturn(emptyList());
-
-            mockMvc.perform(get("/restaurants?zipcode=19915&allergy=peanut"))
-                    .andExpect(status().isNotFound())
-                    .andExpect(jsonPath("$.message", equalTo("No results found")));
-        }
     }
 
 }

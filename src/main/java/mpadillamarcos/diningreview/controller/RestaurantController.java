@@ -2,15 +2,18 @@ package mpadillamarcos.diningreview.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mpadillamarcos.diningreview.exception.NotFoundException;
 import mpadillamarcos.diningreview.model.Restaurant;
 import mpadillamarcos.diningreview.model.RestaurantRequest;
 import mpadillamarcos.diningreview.service.RestaurantService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class RestaurantController {
@@ -37,12 +40,15 @@ public class RestaurantController {
             @RequestParam(required = false) Integer zipcode,
             @RequestParam(required = false) String allergy
     ) {
-        var restaurants = service.findRestaurants(zipcode, allergy);
-        if (restaurants.isEmpty()) {
-            throw new NotFoundException("No results found");
+        if (zipcode != null && allergy != null) {
+            return service.findRestaurants(zipcode, allergy);
         }
-
-        return restaurants;
+        if (allergy != null) {
+            return service.findRestaurants(allergy);
+        }
+        if (zipcode != null) {
+            return service.findRestaurants(zipcode);
+        }
+        return service.findRestaurants();
     }
-
 }

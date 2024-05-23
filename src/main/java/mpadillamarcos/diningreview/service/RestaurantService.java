@@ -7,8 +7,12 @@ import mpadillamarcos.diningreview.model.RestaurantRequest;
 import mpadillamarcos.diningreview.repository.RestaurantRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.Collections.emptyList;
 
 @Service
 @RequiredArgsConstructor
@@ -45,18 +49,20 @@ public class RestaurantService {
             return repository.findByDairyNotNullAndZipcodeOrderByDairyDesc(zipcode);
         }
     }
-
     public List<Restaurant> findRestaurants(Integer zipcode) {
         return repository.findByZipcode(zipcode);
     }
 
     public List<Restaurant> findRestaurants(String allergy) {
-        if (allergy.equals("peanut")) {
-            return repository.findByPeanutNotNullOrderByPeanutDesc();
-        } else if (allergy.equals("egg")) {
-            return repository.findByEggNotNullOrderByEggDesc();
-        } else {
-            return repository.findByDairyNotNullOrderByDairyDesc();
-        }
+        return switch (allergy) {
+            case "peanut" -> repository.findByPeanutNotNullOrderByPeanutDesc();
+            case "egg" -> repository.findByEggNotNullOrderByEggDesc();
+            case "dairy" -> repository.findByDairyNotNullOrderByDairyDesc();
+            default -> emptyList();
+        };
+    }
+
+    public List<Restaurant> findRestaurants() {
+        return repository.findAll();
     }
 }

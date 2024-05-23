@@ -12,6 +12,8 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 
     Optional<Restaurant> findById(Long id);
 
+    List<Restaurant> findAll();
+
     List<Restaurant> findByZipcodeAndTotalNotNullOrderByTotalDesc(Integer zipcode);
 
     List<Restaurant> findByPeanutNotNullAndZipcodeOrderByPeanutDesc(Integer zipcode);
