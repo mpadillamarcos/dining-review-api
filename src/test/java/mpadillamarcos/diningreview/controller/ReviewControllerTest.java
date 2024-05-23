@@ -40,6 +40,20 @@ class ReviewControllerTest {
         }
 
         @Test
+        void returns_bad_request_when_scores_are_invalid() throws Exception {
+            String requestBody = """
+                    {
+                        "peanutScore": 10,
+                        "commentary": "Awesome"
+                    }
+                    """;
+            mockMvc.perform(post("/maria123/9/reviews")
+                            .content(requestBody)
+                            .contentType(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
         void returns_ok_when_body_is_valid() throws Exception {
             String requestBody = """
                     {

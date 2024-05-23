@@ -18,6 +18,15 @@ public class Checks {
             throw new IllegalArgumentException("Invalid US zipcode: " + zipcode);
         }
         return zipcode;
+    }
 
+    public static Integer requireValidScore(Integer score) {
+        if (score == null) {
+            return null;
+        }
+        if (score < 1 || score > 5) {
+            throw new IllegalArgumentException("The score should be an integer between 1 and 5");
+        }
+        return score;
     }
 }
