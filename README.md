@@ -34,3 +34,86 @@ The dining review app is built using Java and Spring Boot framework.
   dependencies.
 - **AssertJ**: to make the tests more readable by writing assertions that resemble natural language.
 - **H2Database**: to set up an H2 database.
+
+## :test_tube: Api Endpoints
+Here there are some instructions to test all the endpoints. Remember to run the application first.
+<details>
+<summary> :bust_in_silhouette: User endpoints</summary>
+
+1. Create new user
+
+#### POST /users
+```
+curl -X POST -d "{\"username\":\"mariaPadilla\", \"city\":\"Phoenix\", \"state\":\"Arizona\", \"zipcode\":\"85007\", \"peanut\":false, \"egg\":false, \"dairy\":true}" -H "Content-Type: application/json" http://localhost:8080/users
+```
+
+2. Get user by username
+#### GET /users/{username}
+```
+curl http://localhost:8080/users/mariaPadilla
+```
+
+3. Update user
+#### PUT /users/{username}
+```
+curl -X PUT -d "{\"city\":\"Los Angeles\", \"state\":\"California\", \"zipcode\":\"90240\", \"peanut\":true, \"egg\":false, \"dairy\":true}" -H "Content-Type: application/json" http://localhost:8080/users/mariaPadilla
+```
+
+</details>
+
+<details>
+<summary>:fork_and_knife: Restaurant endpoints</summary>
+
+1. Create new restaurant
+#### POST /restaurants
+```
+curl -X POST -d "{\"name\":\"Es Brollador\", \"zipcode\":\"85007\"}" -H "Content-Type: application/json" http://localhost:8080/restaurants
+```
+2. Search restaurant by id
+#### GET /restaurants/{restaurantId}
+```
+curl http://localhost:8080/restaurants/1
+```
+3. Search restaurants with query params
+#### GET /restaurants?zipcode={zipcode}&allergy={allergy}
+Both query params are not required, so we can also find all restaurants available.
+```
+curl http://localhost:8080/restaurants
+```
+```
+curl http://localhost:8080/restaurants?zipcode=85007
+```
+> :memo: **Note:** If you have run these cURLs in order, the next one will return an empty list because the restaurant 
+> hasn't been reviewed yet.
+```
+curl http://localhost:8080/restaurants?allergy=peanut
+```
+```
+curl http://localhost:8080/restaurants?zipcode=85007&allergy=egg
+```
+</details>
+
+<details>
+<summary>:100: Review endpoints</summary>
+
+1. Create a review
+#### POST /{username}/{restaurantId}/reviews
+```
+curl -X POST -d "{\"peanutScore\": 4, \"dairyScore\": 4, \"commentary\":\"Nice place\"}" -H "Content-Type: application/json" http://localhost:8080/mariaPadilla/1/reviews
+```
+2. (Admin) Search all pending reviews
+#### GET /admin/pending
+```
+curl http://localhost:8080/admin/pending
+```
+3. (Admin) Accept a review
+#### PUT /admin/{reviewId}/accept
+```
+curl -X PUT http://localhost:8080/admin/1/accept
+```
+4. (Admin) Reject a review
+#### PUT /admin/{reviewId}/reject
+```
+curl -X PUT http://localhost:8080/admin/1/reject
+```
+</details>
