@@ -90,7 +90,7 @@ class ReviewServiceTest {
 
         @Test
         void persists_state_change_to_accepted() {
-            var restaurant = restaurantRepository.save(newRestaurant().name("Potato House").zipcode(11111).build());
+            var restaurant = restaurantRepository.save(newRestaurant().name("Potato House").zipcode("11111").build());
             var review = newReview().restaurantId(restaurant.getId()).username("maria").build();
             repository.save(review);
 
@@ -103,7 +103,7 @@ class ReviewServiceTest {
 
         @Test
         void updates_restaurant_scores() {
-            var restaurant = restaurantRepository.save(newRestaurant().name("Potato House").zipcode(11112).build());
+            var restaurant = restaurantRepository.save(newRestaurant().name("Potato House").zipcode("11112").build());
             var review1 = newReview()
                     .restaurantId(restaurant.getId())
                     .username("maria1")

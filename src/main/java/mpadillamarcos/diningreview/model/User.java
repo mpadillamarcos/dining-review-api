@@ -31,7 +31,7 @@ public class User {
 
     @Column(name = "zipcode")
     @NotNull
-    private Integer zipcode;
+    private String zipcode;
 
     @Column(name = "peanut")
     @NotNull
@@ -48,7 +48,7 @@ public class User {
     public User() {
     }
 
-    public User(String username, String city, String state, Integer zipcode, Boolean peanut, Boolean egg, Boolean dairy) {
+    public User(String username, String city, String state, String zipcode, Boolean peanut, Boolean egg, Boolean dairy) {
         this.username = require("username", username);
         this.city = require("city", city);
         this.state = require("state", state);

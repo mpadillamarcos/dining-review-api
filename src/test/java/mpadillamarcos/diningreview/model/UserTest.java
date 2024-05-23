@@ -24,7 +24,7 @@ class UserTest {
 
     @Test
     void requires_valid_zipcode() {
-        var exception = assertThrows(IllegalArgumentException.class, dummyUser().zipcode(456789)::build);
+        var exception = assertThrows(IllegalArgumentException.class, dummyUser().zipcode("456789")::build);
 
         assertThat(exception).hasMessage("Invalid US zipcode: 456789");
     }
@@ -39,7 +39,7 @@ class UserTest {
                 .username(username)
                 .city(city)
                 .state(state)
-                .zipcode(82716)
+                .zipcode("82716")
                 .peanut(true)
                 .egg(false)
                 .dairy(true)
@@ -49,7 +49,7 @@ class UserTest {
                 .returns(username, User::getUsername)
                 .returns(city, User::getCity)
                 .returns(state, User::getState)
-                .returns(82716, User::getZipcode)
+                .returns("82716", User::getZipcode)
                 .returns(true, User::getPeanut)
                 .returns(false, User::getEgg)
                 .returns(true, User::getDairy);

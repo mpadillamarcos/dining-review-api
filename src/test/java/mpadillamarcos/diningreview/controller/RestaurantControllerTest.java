@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Collections.emptyList;
 import static mpadillamarcos.diningreview.model.Instances.dummyRestaurant;
 import static mpadillamarcos.diningreview.model.Instances.dummyRestaurantRequestBuilder;
 import static org.hamcrest.Matchers.equalTo;
@@ -86,7 +85,7 @@ class RestaurantControllerTest {
                     .andExpect(status().isOk());
 
             verify(restaurantService, times(1))
-                    .newRestaurant(dummyRestaurantRequestBuilder().name("La Trattoria").zipcode(12345).build());
+                    .newRestaurant(dummyRestaurantRequestBuilder().name("La Trattoria").zipcode("12345").build());
         }
     }
 
@@ -132,7 +131,7 @@ class RestaurantControllerTest {
             var restaurant1 = dummyRestaurant()
                     .id(1L)
                     .name("Max Burger")
-                    .zipcode(19915)
+                    .zipcode("19915")
                     .peanut(4.2F)
                     .egg(4.4F)
                     .dairy(4.3F)
@@ -141,14 +140,14 @@ class RestaurantControllerTest {
             var restaurant2 = dummyRestaurant()
                     .id(2L)
                     .name("Piper Pizza")
-                    .zipcode(19915)
+                    .zipcode("19915")
                     .peanut(3.2F)
                     .egg(4.5F)
                     .dairy(3.3F)
                     .total(3.67F)
                     .build();
 
-            when(restaurantService.findRestaurants(19915, "dairy"))
+            when(restaurantService.findRestaurants("19915", "dairy"))
                     .thenReturn(List.of(restaurant1, restaurant2));
 
             mockMvc.perform(get("/restaurants?zipcode=19915&allergy=dairy"))

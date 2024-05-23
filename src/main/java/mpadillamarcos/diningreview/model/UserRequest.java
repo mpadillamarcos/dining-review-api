@@ -17,7 +17,7 @@ public class UserRequest {
     @NotNull
     private String state;
     @NotNull
-    private Integer zipcode;
+    private String zipcode;
     @NotNull
     private Boolean peanut;
     @NotNull
@@ -25,7 +25,7 @@ public class UserRequest {
     @NotNull
     private Boolean dairy;
 
-    public UserRequest(String username, String city, String state, Integer zipcode, Boolean peanut, Boolean egg, Boolean dairy) {
+    public UserRequest(String username, String city, String state, String zipcode, Boolean peanut, Boolean egg, Boolean dairy) {
         this.username = username;
         this.city = city;
         this.state = state;

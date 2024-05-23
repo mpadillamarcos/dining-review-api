@@ -1,6 +1,5 @@
 package mpadillamarcos.diningreview.controller;
 
-import mpadillamarcos.diningreview.model.User;
 import mpadillamarcos.diningreview.model.UserRequest;
 import mpadillamarcos.diningreview.service.UserService;
 import org.junit.jupiter.api.Nested;
@@ -18,7 +17,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = UserController.class)
 class UserControllerTest {
@@ -45,7 +45,7 @@ class UserControllerTest {
                         "username": "maria123",
                         "city": "San Francisco",
                         "state": "California",
-                        "zipcode": 94118,
+                        "zipcode": "94118",
                         "peanut": true,
                         "dairy": false
                     }
@@ -64,7 +64,7 @@ class UserControllerTest {
                         "username": "maria123",
                         "city": "San Francisco",
                         "state": "California",
-                        "zipcode": 123456789,
+                        "zipcode": "123456789",
                         "peanut": true,
                         "egg": false,
                         "dairy": false
@@ -83,7 +83,7 @@ class UserControllerTest {
                         "username": "maria123",
                         "city": "San Francisco",
                         "state": "California",
-                        "zipcode": 94118,
+                        "zipcode": "94118",
                         "peanut": false,
                         "egg": false,
                         "dairy": true
@@ -101,7 +101,7 @@ class UserControllerTest {
                             .username("maria123")
                             .city("San Francisco")
                             .state("California")
-                            .zipcode(94118)
+                            .zipcode("94118")
                             .peanut(false)
                             .egg(false)
                             .dairy(true)
@@ -126,7 +126,7 @@ class UserControllerTest {
         void returns_bad_request_when_required_body_is_not_complete() throws Exception {
             String requestBody = """
                     {
-                        "zipcode": 94118,
+                        "zipcode": "94118",
                         "peanut": true,
                         "dairy": false
                     }
@@ -144,7 +144,7 @@ class UserControllerTest {
                     {
                         "city": "San Francisco",
                         "state": "California",
-                        "zipcode": 94118,
+                        "zipcode": "94118",
                         "peanut": "yes",
                         "egg": true
                         "dairy": false
@@ -163,7 +163,7 @@ class UserControllerTest {
                     {
                         "city": "San Francisco",
                         "state": "California",
-                        "zipcode": 94118,
+                        "zipcode": "94118",
                         "peanut": true,
                         "egg": true,
                         "dairy": true
@@ -179,7 +179,7 @@ class UserControllerTest {
             var expectedRequest = dummyUpdateRequestBuilder()
                     .city("San Francisco")
                     .state("California")
-                    .zipcode(94118)
+                    .zipcode("94118")
                     .peanut(true)
                     .egg(true)
                     .dairy(true)
@@ -202,7 +202,7 @@ class UserControllerTest {
                     .andExpect(jsonPath("$.username", equalTo("maria123")))
                     .andExpect(jsonPath("$.city", equalTo("San Francisco")))
                     .andExpect(jsonPath("$.state", equalTo("California")))
-                    .andExpect(jsonPath("$.zipcode", equalTo(94118)))
+                    .andExpect(jsonPath("$.zipcode", equalTo("94118")))
                     .andExpect(jsonPath("$.peanut", equalTo(false)))
                     .andExpect(jsonPath("$.egg", equalTo(false)))
                     .andExpect(jsonPath("$.dairy", equalTo(true)));

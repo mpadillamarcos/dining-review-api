@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -38,14 +36,14 @@ public class RestaurantController {
             @RequestParam(required = false) String allergy
     ) {
         if (zipcode != null && allergy != null) {
-            return service.findRestaurants(parseInt(zipcode), allergy);
+            return service.findRestaurants(zipcode, allergy);
         }
         if (allergy != null) {
-            return service.findRestaurants(allergy);
+            return service.findRestaurantsByAllergy(allergy);
         }
         if (zipcode != null) {
-            return service.findRestaurants(parseInt(zipcode));
+            return service.findRestaurantsByZipcode(zipcode);
         }
-        return service.findRestaurants();
+        return service.findRestaurantsByAllergy();
     }
 }

@@ -9,9 +9,10 @@ import static mpadillamarcos.diningreview.model.Review.ReviewBuilder;
 import static mpadillamarcos.diningreview.model.Review.newReview;
 import static mpadillamarcos.diningreview.model.ReviewRequest.reviewRequestBuilder;
 import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
-import static mpadillamarcos.diningreview.model.UserUpdateRequest.userUpdateRequestBuilder;
 import static mpadillamarcos.diningreview.model.User.newUser;
-import static mpadillamarcos.diningreview.model.UserRequest.*;
+import static mpadillamarcos.diningreview.model.UserRequest.UserRequestBuilder;
+import static mpadillamarcos.diningreview.model.UserRequest.userRequestBuilder;
+import static mpadillamarcos.diningreview.model.UserUpdateRequest.userUpdateRequestBuilder;
 
 public class Instances {
 
@@ -19,7 +20,7 @@ public class Instances {
         return newRestaurant()
                 .id(456L)
                 .name("Bella Trattoria")
-                .zipcode(94118)
+                .zipcode("94118")
                 .peanut(3F)
                 .egg(4.4F)
                 .dairy(2.3F)
@@ -43,7 +44,7 @@ public class Instances {
                 .username("maria123")
                 .city("San Francisco")
                 .state("California")
-                .zipcode(94118)
+                .zipcode("94118")
                 .peanut(false)
                 .egg(false)
                 .dairy(true);
@@ -57,6 +58,7 @@ public class Instances {
     public static UserRequestBuilder dummyUserRequestBuilder() {
         return userRequestBuilder();
     }
+
     public static RestaurantRequest.RestaurantRequestBuilder dummyRestaurantRequestBuilder() {
         return restaurantRequestBuilder();
     }

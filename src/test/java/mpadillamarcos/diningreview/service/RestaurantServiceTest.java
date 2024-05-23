@@ -29,21 +29,21 @@ class RestaurantServiceTest {
     class NewRestaurant {
         @Test
         void persists_new_restaurant() {
-            var restaurant = dummyRestaurantRequestBuilder().name("Palermo").zipcode(45678).build();
+            var restaurant = dummyRestaurantRequestBuilder().name("Palermo").zipcode("45678").build();
 
             var id = service.newRestaurant(restaurant);
 
             assertThat(repository.findById(id)).get()
                     .returns("Palermo", Restaurant::getName)
-                    .returns(45678, Restaurant::getZipcode);
+                    .returns("45678", Restaurant::getZipcode);
         }
 
         @Test
         void throws_exception_when_restaurant_already_exists() {
-            var restaurant1 = dummyRestaurantRequestBuilder().name("Pizzeria").zipcode(12345).build();
+            var restaurant1 = dummyRestaurantRequestBuilder().name("Pizzeria").zipcode("12345").build();
             service.newRestaurant(restaurant1);
 
-            var restaurant2 = dummyRestaurantRequestBuilder().name("Pizzeria").zipcode(12345).build();
+            var restaurant2 = dummyRestaurantRequestBuilder().name("Pizzeria").zipcode("12345").build();
             assertThrows(RestaurantAlreadyExistsException.class, () -> service.newRestaurant(restaurant2));
         }
     }
@@ -52,12 +52,12 @@ class RestaurantServiceTest {
     class FindRestaurantById {
         @Test
         void returns_restaurant_information() {
-            var request = dummyRestaurantRequestBuilder().name("La Toscana").zipcode(40504).build();
+            var request = dummyRestaurantRequestBuilder().name("La Toscana").zipcode("40504").build();
             var id = service.newRestaurant(request);
             var restaurant = dummyRestaurant()
                     .id(id)
                     .name("La Toscana")
-                    .zipcode(40504)
+                    .zipcode("40504")
                     .peanut(null)
                     .egg(null)
                     .dairy(null)
@@ -77,7 +77,7 @@ class RestaurantServiceTest {
             var restaurant1 = dummyRestaurant()
                     .id(1L)
                     .name("Max Burger")
-                    .zipcode(11122)
+                    .zipcode("11122")
                     .peanut(null)
                     .egg(4.4F)
                     .dairy(4.3F)
@@ -86,7 +86,7 @@ class RestaurantServiceTest {
             var restaurant2 = dummyRestaurant()
                     .id(2L)
                     .name("Piper Pizza")
-                    .zipcode(11122)
+                    .zipcode("11122")
                     .peanut(null)
                     .egg(4.5F)
                     .dairy(null)
@@ -95,14 +95,14 @@ class RestaurantServiceTest {
             repository.save(restaurant1);
             repository.save(restaurant2);
 
-            var response = service.findRestaurants(11122, "egg");
+            var response = service.findRestaurants("11122", "egg");
 
             assertThat(response).containsExactlyElementsOf(List.of(restaurant2, restaurant1));
         }
 
         @Test
         void returns_an_empty_list_when_none_of_the_restaurants_match_the_search_searching_by_zipcode_and_allergy() {
-            var response = service.findRestaurants(11122, "peanut");
+            var response = service.findRestaurants("11122", "peanut");
 
             assertThat(response).isEmpty();
         }
@@ -112,7 +112,7 @@ class RestaurantServiceTest {
             var restaurant1 = dummyRestaurant()
                     .id(1L)
                     .name("Max Burger")
-                    .zipcode(11122)
+                    .zipcode("11122")
                     .peanut(null)
                     .egg(4.4F)
                     .dairy(4.3F)
@@ -121,7 +121,7 @@ class RestaurantServiceTest {
             var restaurant2 = dummyRestaurant()
                     .id(2L)
                     .name("Piper Pizza")
-                    .zipcode(11122)
+                    .zipcode("11122")
                     .peanut(null)
                     .egg(4.5F)
                     .dairy(null)
@@ -130,14 +130,14 @@ class RestaurantServiceTest {
             repository.save(restaurant1);
             repository.save(restaurant2);
 
-            var response = service.findRestaurants(11122);
+            var response = service.findRestaurantsByZipcode("11122");
 
             assertThat(response).containsExactlyElementsOf(List.of(restaurant1, restaurant2));
         }
 
         @Test
         void returns_an_empty_list_when_none_of_the_restaurants_match_the_zipcode() {
-            var response = service.findRestaurants(10000);
+            var response = service.findRestaurantsByZipcode("10000");
 
             assertThat(response).isEmpty();
         }
@@ -147,7 +147,7 @@ class RestaurantServiceTest {
             var restaurant1 = dummyRestaurant()
                     .id(1L)
                     .name("Max Burger")
-                    .zipcode(11122)
+                    .zipcode("11122")
                     .peanut(null)
                     .egg(4.4F)
                     .dairy(4.3F)
@@ -156,7 +156,7 @@ class RestaurantServiceTest {
             var restaurant2 = dummyRestaurant()
                     .id(2L)
                     .name("Piper Pizza")
-                    .zipcode(11123)
+                    .zipcode("11123")
                     .peanut(null)
                     .egg(4.5F)
                     .dairy(null)
@@ -165,14 +165,14 @@ class RestaurantServiceTest {
             repository.save(restaurant1);
             repository.save(restaurant2);
 
-            var response = service.findRestaurants("egg");
+            var response = service.findRestaurantsByAllergy("egg");
 
             assertThat(response).containsExactlyElementsOf(List.of(restaurant2, restaurant1));
         }
 
         @Test
         void returns_an_empty_list_when_none_of_the_restaurants_match_the_allergy() {
-            var response = service.findRestaurants("peanut");
+            var response = service.findRestaurantsByAllergy("peanut");
 
             assertThat(response).isEmpty();
         }

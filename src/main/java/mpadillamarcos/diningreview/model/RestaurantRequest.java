@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
-import static mpadillamarcos.diningreview.utils.Checks.require;
 import static mpadillamarcos.diningreview.utils.Checks.requireValidZipcode;
 
 @Data
@@ -15,9 +14,9 @@ public class RestaurantRequest {
     private String name;
 
     @NotNull
-    private Integer zipcode;
+    private String zipcode;
 
-    public RestaurantRequest(String name, Integer zipcode) {
+    public RestaurantRequest(String name, String zipcode) {
         this.name = name;
         this.zipcode = requireValidZipcode(zipcode);
     }

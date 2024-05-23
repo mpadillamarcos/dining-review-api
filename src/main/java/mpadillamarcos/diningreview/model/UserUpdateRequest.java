@@ -15,7 +15,7 @@ public class UserUpdateRequest {
     private String state;
 
     @NotNull
-    private Integer zipcode;
+    private String zipcode;
 
     @NotNull
     private Boolean peanut;

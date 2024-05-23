@@ -14,13 +14,11 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 
     List<Restaurant> findAll();
 
-    List<Restaurant> findByZipcodeAndTotalNotNullOrderByTotalDesc(Integer zipcode);
+    List<Restaurant> findByPeanutNotNullAndZipcodeOrderByPeanutDesc(String zipcode);
 
-    List<Restaurant> findByPeanutNotNullAndZipcodeOrderByPeanutDesc(Integer zipcode);
+    List<Restaurant> findByEggNotNullAndZipcodeOrderByEggDesc(String zipcode);
 
-    List<Restaurant> findByEggNotNullAndZipcodeOrderByEggDesc(Integer zipcode);
-
-    List<Restaurant> findByDairyNotNullAndZipcodeOrderByDairyDesc(Integer zipcode);
+    List<Restaurant> findByDairyNotNullAndZipcodeOrderByDairyDesc(String zipcode);
 
     List<Restaurant> findByPeanutNotNullOrderByPeanutDesc();
 
@@ -28,7 +26,7 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 
     List<Restaurant> findByDairyNotNullOrderByDairyDesc();
 
-    List<Restaurant> findByZipcode(Integer zipcode);
+    List<Restaurant> findByZipcode(String zipcode);
 
-    Optional<Restaurant> findByZipcodeAndName(Integer zipcode, String name);
+    Optional<Restaurant> findByZipcodeAndName(String zipcode, String name);
 }

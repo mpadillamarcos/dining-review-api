@@ -7,8 +7,6 @@ import mpadillamarcos.diningreview.model.RestaurantRequest;
 import mpadillamarcos.diningreview.repository.RestaurantRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +38,7 @@ public class RestaurantService {
         return repository.findById(id);
     }
 
-    public List<Restaurant> findRestaurants(Integer zipcode, String allergy) {
+    public List<Restaurant> findRestaurants(String zipcode, String allergy) {
         if (allergy.equals("peanut")) {
             return repository.findByPeanutNotNullAndZipcodeOrderByPeanutDesc(zipcode);
         } else if (allergy.equals("egg")) {
@@ -49,11 +47,12 @@ public class RestaurantService {
             return repository.findByDairyNotNullAndZipcodeOrderByDairyDesc(zipcode);
         }
     }
-    public List<Restaurant> findRestaurants(Integer zipcode) {
+
+    public List<Restaurant> findRestaurantsByZipcode(String zipcode) {
         return repository.findByZipcode(zipcode);
     }
 
-    public List<Restaurant> findRestaurants(String allergy) {
+    public List<Restaurant> findRestaurantsByAllergy(String allergy) {
         return switch (allergy) {
             case "peanut" -> repository.findByPeanutNotNullOrderByPeanutDesc();
             case "egg" -> repository.findByEggNotNullOrderByEggDesc();
@@ -62,7 +61,7 @@ public class RestaurantService {
         };
     }
 
-    public List<Restaurant> findRestaurants() {
+    public List<Restaurant> findRestaurantsByAllergy() {
         return repository.findAll();
     }
 }

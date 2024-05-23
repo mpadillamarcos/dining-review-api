@@ -21,7 +21,7 @@ public class Restaurant {
     private String name;
 
     @Column(name = "zipcode")
-    private Integer zipcode;
+    private String zipcode;
 
     @Column(name = "peanut_score")
     private Float peanut;
@@ -35,7 +35,7 @@ public class Restaurant {
     @Column(name = "total_score")
     private Float total;
 
-    public Restaurant(Long id, String name, Integer zipcode, Float peanut, Float egg, Float dairy, Float total) {
+    public Restaurant(Long id, String name, String zipcode, Float peanut, Float egg, Float dairy, Float total) {
         this.id = id;
         this.name = require("name", name);
         this.zipcode = requireValidZipcode(zipcode);

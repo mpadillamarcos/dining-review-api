@@ -9,12 +9,11 @@ public class Checks {
         return value;
     }
 
-    public static Integer requireValidZipcode(Integer zipcode) {
+    public static String requireValidZipcode(String zipcode) {
         if (zipcode == null) {
             throw new IllegalArgumentException("zipcode must not be null");
         }
-        String zipcodeString = zipcode.toString();
-        if (!zipcodeString.matches("\\d{5}")) {
+        if (!zipcode.matches("\\d{5}")) {
             throw new IllegalArgumentException("Invalid US zipcode: " + zipcode);
         }
         return zipcode;
