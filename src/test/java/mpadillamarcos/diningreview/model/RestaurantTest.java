@@ -23,6 +23,13 @@ class RestaurantTest {
     }
 
     @Test
+    void requires_valid_zipcode() {
+        var exception = assertThrows(IllegalArgumentException.class, dummyRestaurant().zipcode(123456)::build);
+
+        assertThat(exception).hasMessage("Invalid US zipcode: 123456");
+    }
+
+    @Test
     void creates_restaurant_with_builder_values() {
         var id = 1234L;
         var name = "Lolailo";
@@ -30,13 +37,13 @@ class RestaurantTest {
         var restaurant = newRestaurant()
                 .id(id)
                 .name(name)
-                .zipcode(123456)
+                .zipcode(12345)
                 .build();
 
         assertThat(restaurant)
                 .returns(id, Restaurant::getId)
                 .returns(name, Restaurant::getName)
-                .returns(123456, Restaurant::getZipcode);
+                .returns(12345, Restaurant::getZipcode);
     }
 
     static List<Arguments> restaurantsWithMissingData() {

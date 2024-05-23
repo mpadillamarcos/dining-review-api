@@ -5,10 +5,13 @@ import lombok.RequiredArgsConstructor;
 import mpadillamarcos.diningreview.exception.NotFoundException;
 import mpadillamarcos.diningreview.model.UpdateRequest;
 import mpadillamarcos.diningreview.model.User;
+import mpadillamarcos.diningreview.model.UserRequest;
 import mpadillamarcos.diningreview.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
+import static mpadillamarcos.diningreview.utils.Checks.requireValidZipcode;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +20,7 @@ public class UserController {
     private final UserService service;
 
     @PostMapping("/users")
-    public void createNewUser(@Valid @RequestBody User request) {
+    public void createNewUser(@Valid @RequestBody UserRequest request) {
         service.createNewUser(request);
     }
 

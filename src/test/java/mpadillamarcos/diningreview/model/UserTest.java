@@ -23,6 +23,13 @@ class UserTest {
     }
 
     @Test
+    void requires_valid_zipcode() {
+        var exception = assertThrows(IllegalArgumentException.class, dummyUser().zipcode(456789)::build);
+
+        assertThat(exception).hasMessage("Invalid US zipcode: 456789");
+    }
+
+    @Test
     void creates_user_with_builder_values() {
         var username = "Pepe123";
         var city = "Gillette";

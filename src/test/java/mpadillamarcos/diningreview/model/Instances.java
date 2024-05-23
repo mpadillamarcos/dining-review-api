@@ -11,6 +11,7 @@ import static mpadillamarcos.diningreview.model.ReviewRequest.reviewRequestBuild
 import static mpadillamarcos.diningreview.model.ReviewState.PENDING;
 import static mpadillamarcos.diningreview.model.UpdateRequest.updateRequestBuilder;
 import static mpadillamarcos.diningreview.model.User.newUser;
+import static mpadillamarcos.diningreview.model.UserRequest.*;
 
 public class Instances {
 
@@ -53,6 +54,9 @@ public class Instances {
         return updateRequestBuilder();
     }
 
+    public static UserRequestBuilder dummyUserRequestBuilder() {
+        return userRequestBuilder();
+    }
     public static RestaurantRequest.RestaurantRequestBuilder dummyRestaurantRequestBuilder() {
         return restaurantRequestBuilder();
     }

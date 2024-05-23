@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import static mpadillamarcos.diningreview.utils.Checks.require;
+import static mpadillamarcos.diningreview.utils.Checks.requireValidZipcode;
 
 @Data
 @Entity
@@ -51,11 +52,12 @@ public class User {
         this.username = require("username", username);
         this.city = require("city", city);
         this.state = require("state", state);
-        this.zipcode = require("zipcode", zipcode);
+        this.zipcode = requireValidZipcode(zipcode);
         this.peanut = require("peanut", peanut);
         this.egg = require("egg", egg);
         this.dairy = require("dairy", dairy);
     }
+
 
     public static UserBuilder newUser() {
         return builder();

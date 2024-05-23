@@ -1,6 +1,7 @@
 package mpadillamarcos.diningreview.controller;
 
 import mpadillamarcos.diningreview.model.User;
+import mpadillamarcos.diningreview.model.UserRequest;
 import mpadillamarcos.diningreview.service.UserService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,8 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = UserController.class)
 class UserControllerTest {
@@ -58,6 +58,25 @@ class UserControllerTest {
         }
 
         @Test
+        void returns_bad_request_when_zipcode_is_not_valid() throws Exception {
+            String requestBody = """
+                    {
+                        "username": "maria123",
+                        "city": "San Francisco",
+                        "state": "California",
+                        "zipcode": 123456789,
+                        "peanut": true,
+                        "egg": false,
+                        "dairy": false
+                    }
+                    """;
+            mockMvc.perform(post("/users")
+                            .content(requestBody)
+                            .contentType(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
         void returns_ok_when_all_required_parameters_are_valid() throws Exception {
             String requestBody = """
                     {
@@ -78,7 +97,7 @@ class UserControllerTest {
                     .andExpect(status().isOk());
 
             verify(userService, times(1))
-                    .createNewUser(User.newUser()
+                    .createNewUser(UserRequest.builder()
                             .username("maria123")
                             .city("San Francisco")
                             .state("California")

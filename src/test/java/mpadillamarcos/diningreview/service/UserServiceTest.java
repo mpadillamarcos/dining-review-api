@@ -11,8 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
-import static mpadillamarcos.diningreview.model.Instances.dummyUpdateRequestBuilder;
-import static mpadillamarcos.diningreview.model.Instances.dummyUser;
+import static mpadillamarcos.diningreview.model.Instances.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -30,7 +29,7 @@ class UserServiceTest {
 
         @Test
         void persists_new_user() {
-            var newUser = dummyUser()
+            var newUser = dummyUserRequestBuilder()
                     .username("maria789")
                     .city("Scranton")
                     .state("Pennsylvania")
@@ -55,7 +54,7 @@ class UserServiceTest {
 
         @Test
         void throws_exception_when_username_already_exists() {
-            var newUser1 = dummyUser()
+            var newUser1 = dummyUserRequestBuilder()
                     .username("maria")
                     .city("Scranton")
                     .state("Pennsylvania")
@@ -67,7 +66,7 @@ class UserServiceTest {
 
             service.createNewUser(newUser1);
 
-            var newUser2 = dummyUser()
+            var newUser2 = dummyUserRequestBuilder()
                     .username("maria")
                     .city("San Francisco")
                     .state("California")
@@ -93,7 +92,15 @@ class UserServiceTest {
 
         @Test
         void persists_updated_user() {
-            var user = dummyUser().username("maria009").build();
+            var user = dummyUserRequestBuilder()
+                    .username("maria009")
+                    .city("San Francisco")
+                    .state("California")
+                    .zipcode(94125)
+                    .peanut(false)
+                    .egg(false)
+                    .dairy(true)
+                    .build();
             service.createNewUser(user);
 
             var updateRequest = dummyUpdateRequestBuilder()
@@ -122,8 +129,25 @@ class UserServiceTest {
     class Find {
         @Test
         void returns_user_information() {
-            var user = dummyUser().username("maria123").build();
-            service.createNewUser(user);
+            var request = dummyUserRequestBuilder()
+                    .username("maria123")
+                    .city("San Francisco")
+                    .state("California")
+                    .zipcode(94118)
+                    .peanut(true)
+                    .egg(true)
+                    .dairy(true)
+                    .build();
+            service.createNewUser(request);
+            var user = dummyUser()
+                    .username("maria123")
+                    .city("San Francisco")
+                    .state("California")
+                    .zipcode(94118)
+                    .peanut(true)
+                    .egg(true)
+                    .dairy(true)
+                    .build();
 
             var response = service.find("maria123");
 

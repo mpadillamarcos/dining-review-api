@@ -5,10 +5,13 @@ import mpadillamarcos.diningreview.exception.NotFoundException;
 import mpadillamarcos.diningreview.exception.UsernameNotAvailableException;
 import mpadillamarcos.diningreview.model.UpdateRequest;
 import mpadillamarcos.diningreview.model.User;
+import mpadillamarcos.diningreview.model.UserRequest;
 import mpadillamarcos.diningreview.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static mpadillamarcos.diningreview.model.User.newUser;
 
 @Service
 @RequiredArgsConstructor
@@ -16,12 +19,20 @@ public class UserService {
 
     private final UserRepository repository;
 
-    public void createNewUser(User request) {
+    public void createNewUser(UserRequest request) {
         if (repository.existsById(request.getUsername())) {
             throw new UsernameNotAvailableException("Username " + request.getUsername() + " is already taken");
         }
-
-        repository.save(request);
+        var user = newUser()
+                .username(request.getUsername())
+                .city(request.getCity())
+                .state(request.getState())
+                .zipcode(request.getZipcode())
+                .peanut(request.getPeanut())
+                .egg(request.getEgg())
+                .dairy(request.getDairy())
+                .build();
+        repository.save(user);
     }
 
     public void update(String username, UpdateRequest request) {

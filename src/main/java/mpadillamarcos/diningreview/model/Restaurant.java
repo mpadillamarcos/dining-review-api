@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import static mpadillamarcos.diningreview.utils.Checks.require;
+import static mpadillamarcos.diningreview.utils.Checks.requireValidZipcode;
 
 @Data
 @Entity
@@ -37,7 +38,7 @@ public class Restaurant {
     public Restaurant(Long id, String name, Integer zipcode, Float peanut, Float egg, Float dairy, Float total) {
         this.id = id;
         this.name = require("name", name);
-        this.zipcode = require("zipcode", zipcode);
+        this.zipcode = requireValidZipcode(zipcode);
         this.peanut = peanut;
         this.egg = egg;
         this.dairy = dairy;

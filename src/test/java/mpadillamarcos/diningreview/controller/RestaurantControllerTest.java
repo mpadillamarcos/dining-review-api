@@ -55,6 +55,22 @@ class RestaurantControllerTest {
         }
 
         @Test
+        void returns_bad_request_when_zipcode_is_not_valid() throws Exception {
+            String requestBody = """
+                    {
+                        "name": "La Trattoria",
+                        "zipcode": 12345678
+                    }
+                    """;
+
+            mockMvc.perform(post(
+                            "/restaurants")
+                            .content(requestBody)
+                            .contentType(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
         void returns_ok_when_all_required_parameters_are_valid() throws Exception {
             String requestBody = """
                     {
